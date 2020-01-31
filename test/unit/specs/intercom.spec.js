@@ -205,5 +205,17 @@ describe('Intercom plugin', () => {
         assert.isTrue(window.Intercom.calledWith('getVisitorId'))
       })
     })
+
+    describe('startTour', () => {
+      beforeEach(() => (window.Intercom = sinon.spy()))
+
+      it('called with tour id', () => {
+        const vm = createVm()
+        vm.$intercom.trackEvent('id')
+        assert.isTrue(window.Intercom.calledOnce)
+        assert.isTrue(window.Intercom.calledWith('startTour', 'id'))
+        assert.strictEqual(window.Intercom.args[0].length, 2)
+      })
+    })
   })
 })
